@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.braincustom.projspringbootjpa.entities.User;
 import com.braincustom.projspringbootjpa.repositories.UserRepository;
+import com.braincustom.projspringbootjpa.services.exceptions.ResourceNotFoundException;
 
 //anotations
 @Service
@@ -23,7 +24,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	//inserindo um novo usuário no BD
